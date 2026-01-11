@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <button onclick="saveAndShow()">Show Calculation</button> <button onclick='resetCalculation()'>Reset </button>
+  <script>
+       //creating a calculation object
+        let calculation={
+            add:0,
+            subtract:0,
+            multiply:0
+        }
+         //user will enter input
+        const a=parseInt(prompt('enter a number'));
+        const b=parseInt(prompt('enter second number'));
+        
+        //function which calculate value
+          function calculateValue(){
+          calculation.add+=a+b
+          calculation.subtract+=a-b;
+          calculation.multiply+=a*b;
+          }
+      //function to save updated calculation in local storage
+        function saveAndShow() {
+        calculateValue();
+        localStorage.setItem('calculation', JSON.stringify(calculation));
+        console.log(JSON.parse(localStorage.getItem('calculation')));
+      }
+    //function for resetting calculation at any stage 
+      function resetCalculation(){
+      calculation={
+      add:0,
+      subtract:0,
+      multiply:0
+      }
+     localStorage.setItem('calculation', JSON.stringify(calculation));
+      console.log(JSON.parse(localStorage.getItem('calculation')));
+    }
+    window.onload = function () {
+  const storedData = localStorage.getItem('calculation');
+  if (storedData) {
+    calculation = JSON.parse(storedData);
+    console.log('Loaded from localStorage on refresh:', calculation);
+  }
+};
+ </script>
+</body>
+</html>
